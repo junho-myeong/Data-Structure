@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class Stack {
   static Scanner keyScan = new Scanner(System.in);
+  @SuppressWarnings("rawtypes")
   static ArrayList list;
 
   static int inputCount() throws Exception {
@@ -20,13 +21,55 @@ public class Stack {
     list.add(i);
   }
 
+  @SuppressWarnings("rawtypes")
   static int size(ArrayList list) {
     return list.size();
   }
+  @SuppressWarnings("rawtypes")
+  static int empty(ArrayList list) {
+    if (list.size() <= 0) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+  @SuppressWarnings("rawtypes")
+  static int top(ArrayList list) {
+    int temp = 0;
+    if (list.size() <= 0) {
+      return -1;
+    } else {
+      for (int i = 0; i < list.size(); i++) {
+        if ((int) list.get(i) > temp) {
+          temp = (int) list.get(i);
+        }
+      }
+      return temp;
+    }
+  }
+  @SuppressWarnings("rawtypes")
+  static int pop(ArrayList list) {
+    int temp = 0;
+    int cursor;
+    int count = 0;
+    if (list.size() <= 0) {
+      return -1;
+    } else {
+      for (cursor = 0; cursor < list.size(); cursor++) {
+        if ((int) list.get(cursor) >= temp) {
+          temp = (int) list.get(cursor);
+          count = cursor;
+        }
+      }
+      list.remove(count);
+      return temp;
+    }
+  }
 
+  @SuppressWarnings("rawtypes")
   public static void main(String[] args) throws Exception {
     int commandCount = inputCount();
-    list = new ArrayList(commandCount);
+    list = new ArrayList();
     for (int i = 0; i < commandCount ; i++) {
       String input = keyScan.nextLine();
       String[] strlist = input.split(" ");
@@ -34,13 +77,15 @@ public class Stack {
         add(Integer.parseInt(strlist[1]));
       } else {
         switch (strlist[0]) {
-          //          case "pop": pop();
-          case "size": System.out.println(size(list));
-          //          case "empty": empty();
-          //          case "top": top():
-          //          default: throw new Exception();
+          case "pop": {
+            System.out.println(pop(list));
+            break;
+          }
+          case "size": System.out.println(size(list)); break;
+          case "empty": System.out.println(empty(list)); break;
+          case "top": System.out.println(top(list)); break;
+          default: throw new Exception();
         }
-        //      }
       }
 
 
